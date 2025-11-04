@@ -52,16 +52,21 @@ def save_jff(alfabeto: list, estados: list, estados_finales: list, transiciones:
             for estado_desde in transiciones:
                 for simbolo in transiciones[estado_desde]:
             
-                    estado_hacia = transiciones[estado_desde][simbolo]
-                    if estado_hacia !="":
-                        trans = ET.SubElement(automaton,'transition')
-                        ET.SubElement(trans,'from').text = estado_a_id[estado_desde]
-                        ET.SubElement(trans,'to').text = estado_a_id[estado_hacia]
-                        ET.SubElement(trans,'read').text = simbolo if simbolo else ''
+                    destinos = transiciones[estado_desde][simbolo]
+                    if destinos:
+                        for destino in destinos:
+                            trans = ET.SubElement(automaton,'transition')
+                            ET.SubElement(trans,'from').text = estado_a_id[estado_desde]
+                            ET.SubElement(trans,'to').text = estado_a_id[destino] #mod estado hacia
+                            ET.SubElement(trans,'read').text = simbolo if simbolo else ''
             
             tree = ET.ElementTree(structure)
             tree.write(file, encoding='utf-8', xml_declaration=True)
             print(f"✅ Autómata guardado en '{file}'")
+            print(f"Automata a guardar:")
+            print(alfabeto)
+            print(estados)
+            print(transiciones)
         else:
             print("❌ Operación cancelada")
 

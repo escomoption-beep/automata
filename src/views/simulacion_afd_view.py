@@ -206,7 +206,9 @@ class Simulacion_afd_view:
         self.cadena = self.cadena_tf.value.replace(' ','')
         print(f"cadena = {self.cadena}")
         self.resultado_simulacion.controls.clear()
-        self.estado_aceptacion = traza_simulacion(self, cadena=self.cadena, transiciones=self.transiciones, estado_inicial=self.estados[0], estados_finales=self.estados_fin)
+        #self.estado_aceptacion = self.traza_simulacion(self, cadena=self.cadena, transiciones=self.transiciones, estado_inicial=self.estados[0], estados_finales=self.estados_fin)
+        # ✅ CORRECTO - Quita el "self" después de traza_simulacion(
+        self.estado_aceptacion = self.traza_simulacion(cadena=self.cadena, transiciones=self.transiciones, estado_inicial=self.estados[0], estados_finales=self.estados_fin)
         #Texto de rechazo o aceptacion
         if self.estado_aceptacion:
             self.estado_aceptacion_text.value = "Cadena Aceptada"
@@ -217,22 +219,35 @@ class Simulacion_afd_view:
 
         self.page.update()
 
-    #Retorna Verdadero o Falso segun la aceptacion cambia el print
-def traza_simulacion(self, cadena:str, transiciones:dict, estado_inicial:str ,estados_finales:list):
-        estado_actual = estado_inicial
+    def traza_simulacion(self, cadena:str, transiciones:dict, estado_inicial:str, estados_finales:list):
+        estados_actuales = [estado_inicial]
         print(" ↓")
         self.resultado_simulacion.controls.append(ft.Text(" ↓"))
-        for i,letra in enumerate(cadena):
-                if i == 0:
-                    print(f"({estado_actual}, {cadena[i:]})")
-                    self.resultado_simulacion.controls.append(ft.Text(f"({estado_actual}, {cadena[i:]})"))
-                else: 
-                    print(f" ⊢({estado_actual}, {cadena[i:]})")
-                    self.resultado_simulacion.controls.append(ft.Text(f" ⊢({estado_actual}, {cadena[i:]})"))
+        
+        # Configuración inicial
+        print(f"({estados_actuales}, {cadena})")
+        self.resultado_simulacion.controls.append(ft.Text(f"({estados_actuales}, {cadena})"))
+        
+        for i, letra in enumerate(cadena):
+            nuevos_estados = []
+            
+            # Procesar cada estado actual
+            for estado in estados_actuales:
+                if letra not in transiciones[estado] or not transiciones[estado][letra]:
+                    return False
                 
-                if not transiciones[estado_actual][letra]:
-                        return False
-                estado_actual = transiciones[estado_actual][letra]
-                
-        return estado_actual in estados_finales
-
+                nuevos_estados.extend(transiciones[estado][letra])  # ← extend en vez de +=
+            
+            if not nuevos_estados:
+                return False
+            
+            # Actualizar sin duplicados
+            estados_actuales = list(dict.fromkeys(nuevos_estados))
+            
+            # Mostrar transición
+            print(f" ⊢({estados_actuales}, {cadena[i+1:]})")
+            self.resultado_simulacion.controls.append(
+                ft.Text(f" ⊢({estados_actuales}, {cadena[i+1:]})")
+            )
+        
+        return any(estado in estados_finales for estado in estados_actuales)

@@ -8,8 +8,7 @@ def load_jff():
         file = filedialog.askopenfilename(
             title="Seleccione un Archivo JFLAP",
             filetypes=[("Archivos JFLAP", "*.jff"),
-                        ("Archivos AFD", "*.afd")
-                    ]
+                        ("Archivos AFD", "*.afd")]
         )
         root.destroy()
 
@@ -24,7 +23,7 @@ def load_jff():
             estados_finales = []
             transiciones = {}
 
-            # Recorrer los estados y extraer la informacion
+            # Recorrer los estados
             for estado in automaton.findall('state'):
                 id_state = estado.get('id')
                 name_state = estado.get('name')
@@ -38,11 +37,11 @@ def load_jff():
                 if estado.find('final') is not None:
                     estados_finales.append(name_state)
             
-            # Inicializar todos los estados en transiciones
+            # Inicializar todos los estados con listas vacías para cada símbolo
             for estado in estados:
                 transiciones[estado] = {}
                 
-            # Recorrer las transiciones y extraer la informacion
+            # Recorrer las transiciones
             for transicion in automaton.findall('transition'):
                 desde_id = transicion.find('from').text
                 hacia_id = transicion.find('to').text
@@ -54,13 +53,18 @@ def load_jff():
                 if simbolo:
                     alfabeto.add(simbolo)
                 
-                transiciones[desde][simbolo] = hacia
+                # Inicializar lista si no existe
+                if simbolo not in transiciones[desde]:
+                    transiciones[desde][simbolo] = []
+                
+                # Agregar destino a la lista (AFND)
+                transiciones[desde][simbolo].append(hacia)
             
-            # Completar transiciones faltantes con ""
+            # Completar transiciones faltantes con listas vacías
             for estado in transiciones:
                 for simbolo in alfabeto:
                     if simbolo not in transiciones[estado]:
-                        transiciones[estado][simbolo] = ""
+                        transiciones[estado][simbolo] = []
             
             return list(alfabeto), estados, estados_finales, transiciones
         else:
@@ -70,8 +74,3 @@ def load_jff():
     except Exception as ex:
         print(f"❌ Error al cargar: {ex}")
         return None, None, None, None
-#alfabeto, estados, estados_finales, transiciones = load_jff()
-#print(alfabeto)
-#print(estados)
-#print(estados_finales)
-#print(transiciones)

@@ -23,9 +23,10 @@ def mk_img_automaton(transiciones: dict, estados_finales: list):
     transiciones_agrupadas = defaultdict(list)
     for estado in transiciones:
         for simbolo in transiciones[estado]:
-            destino = transiciones[estado][simbolo]
-            if destino != "" and destino != "Ø":
-                transiciones_agrupadas[(estado, destino)].append(simbolo)
+            destinos = transiciones[estado][simbolo] #Destino es una listaaaaaaaaaa ksdfjakdjgk
+            if destinos:
+                for destino in destinos:
+                    transiciones_agrupadas[(estado, destino)].append(simbolo)
     
     for (origen, destino), simbolos in transiciones_agrupadas.items():
         label = ",".join(simbolos)

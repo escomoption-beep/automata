@@ -4,7 +4,7 @@ class TablaTransiciones:
     def __init__(self, estados: list, alfabeto: list, transiciones: dict = None):
         self.estados = estados
         self.alfabeto = alfabeto
-        self.transiciones = transiciones
+        self.transiciones = transiciones or {}
     
     def create_dicc_trans(self):
         """Crea una plantilla para el diccionario de transiciones."""
