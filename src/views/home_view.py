@@ -4,7 +4,7 @@ class Home_view:
     def __init__(self, page: ft.Page):
         self.page = page
         self.page.title = "Teoria de la computacion - Kevin Jesus Vazquez Sandria"
-    
+        self.page.theme_mode = ft.ThemeMode.DARK
     def build(self) -> ft.View:
         return ft.View(
             route="/",

@@ -18,6 +18,7 @@ class Definir_afd_view:
     
         self.page = page
         self.page.title = "Definir AFD"
+        self.page.theme_mode = ft.ThemeMode.DARK
         
         #Botones de Inicio
         self.go_home = ft.ElevatedButton(

@@ -9,6 +9,7 @@ class Simulacion_afd_view:
     def __init__(self, page: ft.Page):
         self.page = page
         self.page.title = "Simulacion y Validacion de Cadenas"
+        self.page.theme_mode = ft.ThemeMode.DARK
 
         self.div = ft.Divider(height=10, thickness=1, color="grey",leading_indent= 20)
 

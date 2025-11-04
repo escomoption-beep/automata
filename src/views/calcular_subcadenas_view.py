@@ -6,6 +6,7 @@ class Calcular_subcadenas_view:
     def __init__(self, page: ft.Page):
         self.page = page
         self.page.title = "Calculo de Subcadenas"
+        self.page.theme_mode = ft.ThemeMode.DARK
 
         self.go_home = ft.ElevatedButton(
             icon= ft.Icons.HOME,
