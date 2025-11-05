@@ -41,16 +41,16 @@ class TablaTransiciones:
                     content=ft.Text("Estado", weight="bold", size=14),
                     width=100,
                     padding=10,
-                    bgcolor=ft.Colors.BLUE_GREY_100,
-                    border=ft.border.all(1, ft.Colors.GREY_400)
+                    bgcolor=ft.Colors.BLACK,
+                    border=ft.border.all(1, ft.Colors.BLACK)
                 )
             ] + [
                 ft.Container(
                     content=ft.Text(str(simbolo), weight="bold", size=14),
                     width=200,
                     padding=10,
-                    bgcolor=ft.Colors.BLUE_GREY_100,
-                    border=ft.border.all(1, ft.Colors.GREY_400)
+                    bgcolor=ft.Colors.BLACK,
+                    border=ft.border.all(1, ft.Colors.BLACK)
                 )
                 for simbolo in self.alfabeto
             ],
@@ -65,8 +65,8 @@ class TablaTransiciones:
                     content=ft.Text(estado, size=14),
                     width=100,
                     padding=10,
-                    border=ft.border.all(1, ft.Colors.GREY_400),
-                    bgcolor=ft.Colors.BLUE_GREY_50
+                    border=ft.border.all(1, ft.Colors.BLACK),
+                    bgcolor=ft.Colors.BLACK
                 )
             ]
             
@@ -75,8 +75,8 @@ class TablaTransiciones:
                     value=self.get_value(self.transiciones[estado][simbolo]),
                     text_size=13,
                     on_change=lambda e, est=estado, sim=simbolo: self.actualizar_transicion(est, sim, e),
-                    border_color=ft.Colors.GREY_400,
-                    focused_border_color=ft.Colors.BLUE_400
+                    border_color=ft.Colors.BLACK,
+                    focused_border_color=ft.Colors.BLACK
                 )
                 
                 row_cells.append(
@@ -84,7 +84,7 @@ class TablaTransiciones:
                         content=tf,
                         width=200,
                         padding=5,
-                        border=ft.border.all(1, ft.Colors.GREY_400)
+                        border=ft.border.all(1, ft.Colors.BLACK)
                     )
                 )
             
@@ -99,7 +99,7 @@ class TablaTransiciones:
         
         return ft.Container(
             content=tabla,
-            border=ft.border.all(2, ft.Colors.GREY_400),
+            border=ft.border.all(2, ft.Colors.BLACK),
             border_radius=5
         )
     

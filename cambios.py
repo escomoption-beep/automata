@@ -42,7 +42,7 @@ class TablaTransiciones:
                     width=100,
                     padding=10,
                     bgcolor=ft.Colors.BLUE_GREY_100,
-                    border=ft.border.all(1, ft.Colors.GREY_400)
+                    border=ft.border.all(1, ft.Colors.GREY_900)
                 )
             ] + [
                 ft.Container(
@@ -50,7 +50,7 @@ class TablaTransiciones:
                     width=200,
                     padding=10,
                     bgcolor=ft.Colors.BLUE_GREY_100,
-                    border=ft.border.all(1, ft.Colors.GREY_400)
+                    border=ft.border.all(1, ft.Colors.GREY_900)
                 )
                 for simbolo in self.alfabeto
             ],
@@ -65,7 +65,7 @@ class TablaTransiciones:
                     content=ft.Text(estado, size=14),
                     width=100,
                     padding=10,
-                    border=ft.border.all(1, ft.Colors.GREY_400),
+                    border=ft.border.all(1, ft.Colors.GREY_900),
                     bgcolor=ft.Colors.BLUE_GREY_50
                 )
             ]
@@ -75,7 +75,7 @@ class TablaTransiciones:
                     value=self.get_value(self.transiciones[estado][simbolo]),
                     text_size=13,
                     on_change=lambda e, est=estado, sim=simbolo: self.actualizar_transicion(est, sim, e),
-                    border_color=ft.Colors.GREY_400,
+                    border_color=ft.Colors.GREY_900,
                     focused_border_color=ft.Colors.BLUE_400
                 )
                 
@@ -84,7 +84,7 @@ class TablaTransiciones:
                         content=tf,
                         width=200,
                         padding=5,
-                        border=ft.border.all(1, ft.Colors.GREY_400)
+                        border=ft.border.all(1, ft.Colors.GREY_900)
                     )
                 )
             
@@ -99,7 +99,7 @@ class TablaTransiciones:
         
         return ft.Container(
             content=tabla,
-            border=ft.border.all(2, ft.Colors.GREY_400),
+            border=ft.border.all(2, ft.Colors.GREY_900),
             border_radius=5
         )
     

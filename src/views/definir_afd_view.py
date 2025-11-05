@@ -19,7 +19,9 @@ class Definir_afd_view:
         self.page = page
         self.page.title = "Definir AFD"
         self.page.theme_mode = ft.ThemeMode.DARK
-        
+
+############################################################################################
+####################################################################################################
         #Botones de Inicio
         self.go_home = ft.ElevatedButton(
             icon= ft.Icons.HOME,
@@ -60,8 +62,8 @@ class Definir_afd_view:
             )
         )
         self.div = ft.Divider(height=10, thickness=1, color="grey",leading_indent= 20)
-
-
+####################################################################################################
+####################################################################################################
         #Alfabeto
         self.alfabeto = []
         self.ind_alfabeto = Indicador()
@@ -210,7 +212,7 @@ class Definir_afd_view:
 
                         ft.Row(
                             controls = [
-                                ft.Text(" Tabla de transiciones (δ):"),
+                                ft.Text(" Tabla de transiciones (δ): λ", selectable=True),
                                 ft.ElevatedButton(
                                 text="Crear Tabla de Transiciones/Resetear",
                                 on_click= self.mkTabla
@@ -253,6 +255,7 @@ class Definir_afd_view:
         else:
             self.alfabeto_tf.error_text = None
             self.alfabeto = self.parse_symbol_groups(self.alfabeto_tf.value)
+            self.alfabeto += ['λ']
             self.ind_alfabeto.change_color(True)
             #Resetear las transiciones para forzar la creacion de uno nuevo
             self.transiciones = {}
@@ -349,7 +352,7 @@ class Definir_afd_view:
         transiciones_actualizadas = self.tabla_transiciones.obtener_transiciones()
         
         self.img_automaton = mk_img_automaton(
-            transiciones=transiciones_actualizadas,  # ← Usar las actualizadas
+            transiciones=transiciones_actualizadas, 
             estados_finales=self.estados_fin
         )
         
